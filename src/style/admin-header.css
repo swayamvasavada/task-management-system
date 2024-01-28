@@ -1,0 +1,9 @@
+@media (max-width: 768px) {
+    #auth-header nav ul {
+        display: none;
+    }
+
+    #auth-header nav .menu-btn {
+        display: flex;
+    }
+}
