@@ -21,7 +21,7 @@ export default function Component() {
     useEffect(() => {
         async function fetchingTask() {
             try {
-                const res = await fetch('http://localhost:3001/api/admin/task-view');
+                const res = await fetch( process.env.API_URL +'/api/admin/task-view');
 
                 if (res.ok) {
                     const tasks = await res.json();

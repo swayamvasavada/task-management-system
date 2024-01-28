@@ -20,7 +20,7 @@ export default function Component(props) {
         const id = e.target.dataset.id;
 
         try {
-            const res = await fetch('http://localhost:3001/api/admin/delete-task', {
+            const res = await fetch(process.env.API_URL + '/api/admin/delete-task', {
                 method: 'POST',
                 body: id
             })

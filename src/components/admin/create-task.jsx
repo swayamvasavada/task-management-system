@@ -31,7 +31,7 @@ export default function Component() {
 
     useEffect(() => {
         async function fetchUser() {
-            const res = await fetch('http://localhost:3001/api/admin/available-user');
+            const res = await fetch(process.env.API_URL + '/api/admin/available-user');
             const users = await res.json();
 
             setUser(users);
@@ -49,7 +49,7 @@ export default function Component() {
         e.preventDefault();
 
         try {
-            const res = await fetch('http://localhost:3001/api/admin/create-task', {
+            const res = await fetch(process.env.API_URL + '/api/admin/create-task', {
                 method: 'POST',
                 body: JSON.stringify(formData)
             });

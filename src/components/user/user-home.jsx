@@ -21,7 +21,7 @@ export default function Component() {
         async function fetchingTask() {
 
             try {
-                const res = await fetch('http://localhost:3001/api/user/task-view', {
+                const res = await fetch( process.env.API_URL + '/api/user/task-view', {
                     method: 'POST',
                     body: token,
                 });

@@ -28,7 +28,7 @@ export default function Component() {
         e.preventDefault();
 
         try {
-            const res = await fetch('http://localhost:3001/api/auth/login', {
+            const res = await fetch( process.env.API_URL + '/api/auth/login', {
                 method: 'POST',
                 body: JSON.stringify(formData)
             });

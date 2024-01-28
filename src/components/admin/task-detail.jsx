@@ -20,7 +20,7 @@ export default function Component(props) {
     useEffect(() => {
         async function fetchingTask() {
             try {
-                const res = await fetch('http://localhost:3001/api/admin/task-detail', {
+                const res = await fetch(process.env.API_URL + '/api/admin/task-detail', {
                     method: 'POST',
                     body: taskId
                 });
