@@ -21,7 +21,7 @@ export default function Component() {
         async function fetchingTask() {
 
             try {
-                const res = await fetch( process.env.API_URL + '/api/user/task-view', {
+                const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/user/task-view', {
                     method: 'POST',
                     body: token,
                 });
@@ -54,7 +54,6 @@ export default function Component() {
             });
 
             if (res.ok) {
-                const result = await res.json();
                 navigate(0);
             }
         } catch (error) {

@@ -21,7 +21,7 @@ export default function Component() {
     useEffect(() => {
         async function fetchingTask() {
             try {
-                const res = await fetch( process.env.API_URL +'/api/admin/task-view');
+                const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/task-view');
 
                 if (res.ok) {
                     const tasks = await res.json();

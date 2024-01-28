@@ -20,7 +20,7 @@ export default function Component(props) {
     useEffect(() => {
         async function fetchingTask() {
             try {
-                const res = await fetch(process.env.API_URL + '/api/admin/task-detail', {
+                const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/task-detail', {
                     method: 'POST',
                     body: taskId
                 });

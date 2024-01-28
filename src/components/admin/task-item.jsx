@@ -20,14 +20,12 @@ export default function Component(props) {
         const id = e.target.dataset.id;
 
         try {
-            const res = await fetch(process.env.API_URL + '/api/admin/delete-task', {
+            const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/delete-task', {
                 method: 'POST',
                 body: id
             })
 
             if (res.ok) {
-                const result = await res.json();
-
                 navigate(0)
             }
         } catch (error) {

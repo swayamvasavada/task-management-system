@@ -29,7 +29,7 @@ export default function Component() {
         e.preventDefault();
 
         try {
-            const res = await fetch( process.env.API_URL + '/api/auth/signup', {
+            const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/auth/signup', {
                 method: 'POST',
                 body: JSON.stringify(formData)
             });
