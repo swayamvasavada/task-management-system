@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import Loader from "../loader";
 import Header from "../header/header"
 import "../../style/base.css";
 import "../../style/forms.css";
@@ -22,12 +23,15 @@ export default function Component() {
     };
 
     const [formData, setFormData] = useState(initialState);
+    const [isLoading, toogleLoadingState] = useState(false);
 
 
     async function submitForm(e) {
         e.preventDefault();
 
         try {
+            toogleLoadingState(true);
+
             const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/auth/login', {
                 method: 'POST',
                 body: JSON.stringify(formData)
@@ -50,6 +54,7 @@ export default function Component() {
                 navigate('/')
             }
 
+            toogleLoadingState(false);
         } catch (error) {
             console.log(error);
         }
@@ -61,29 +66,33 @@ export default function Component() {
 
                 <div>
                     <Header />
-                    <main>
-                        <h1>Login</h1>
 
-                        <form onSubmit={submitForm}>
+                    {!isLoading ?
+                        <main>
+                            <h1>Login</h1>
 
-                            <div className="form-control">
-                                <label htmlFor="email">Enter Email</label>
-                                <input type="email" name="email" id="email" onChange={(e) => {
-                                    const { name, value } = e.target;
-                                    setFormData({ ...formData, [name]: value })
-                                }} />
-                            </div>
+                            <form onSubmit={submitForm}>
 
-                            <div className="form-control">
-                                <label htmlFor="password">Enter Password</label>
-                                <input type="password" name="password" id="password" onChange={(e) => {
-                                    const { name, value } = e.target;
-                                    setFormData({ ...formData, [name]: value })
-                                }} />
-                            </div>
-                            <button className="btn">Login</button>
-                        </form>
-                    </main>
+                                <div className="form-control">
+                                    <label htmlFor="email">Enter Email</label>
+                                    <input type="email" name="email" id="email" onChange={(e) => {
+                                        const { name, value } = e.target;
+                                        setFormData({ ...formData, [name]: value })
+                                    }} />
+                                </div>
+
+                                <div className="form-control">
+                                    <label htmlFor="password">Enter Password</label>
+                                    <input type="password" name="password" id="password" onChange={(e) => {
+                                        const { name, value } = e.target;
+                                        setFormData({ ...formData, [name]: value })
+                                    }} />
+                                </div>
+                                <button className="btn">Login</button>
+                            </form>
+                        </main>
+                        : <Loader />
+                    }
                 </div>
             }
         </>

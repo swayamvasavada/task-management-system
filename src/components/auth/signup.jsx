@@ -1,5 +1,6 @@
 import { Navigate, useNavigate } from "react-router-dom";
-import Header from "../header/header"
+import Header from "../header/header";
+import Loader from "../loader";
 import "../../style/base.css";
 import "../../style/forms.css";
 import { useState } from "react";
@@ -23,12 +24,14 @@ export default function Component() {
     };
 
     const [formData, setFormData] = useState(initialState);
-
+    const [isLoading, toogleLoadingState] = useState(false);
 
     async function submitForm(e) {
         e.preventDefault();
 
         try {
+            toogleLoadingState(true);
+
             const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/auth/signup', {
                 method: 'POST',
                 body: JSON.stringify(formData)
@@ -44,6 +47,7 @@ export default function Component() {
                 navigate('/login')
             }
 
+            toogleLoadingState(false);
         } catch (error) {
             alert('something went wrong!');
             console.log(error);
@@ -53,10 +57,11 @@ export default function Component() {
 
     return (
         <>
-            {
-                isAuth ? <Navigate to='/' /> :
-                    <div>
-                        <Header />
+            {isAuth ? <Navigate to='/' />
+                : <div>
+                    <Header />
+
+                    {!isLoading ?
                         <main>
                             <h1>Create Account</h1>
 
@@ -96,7 +101,9 @@ export default function Component() {
                                 <button className="btn">Create Account</button>
                             </form>
                         </main>
-                    </div>
+                        : <Loader />
+                    }
+                </div>
             }
         </>
     )

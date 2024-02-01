@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Header from "../header/header"
+import Loader from "../loader";
 import "../../style/base.css";
 import "../../style/forms.css";
 
@@ -17,6 +18,8 @@ export default function Component() {
     }
 
     const { taskId } = useParams();
+
+    const [isLoading, toogleLoadingState] = useState(false);
     const [taskData, setTaskData] = useState([]);
     const [availableUser, setUser] = useState([]);
 
@@ -33,6 +36,8 @@ export default function Component() {
     useEffect(() => {
         async function fetchingTask() {
             try {
+                toogleLoadingState(true);
+
                 const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/task-detail', {
                     method: 'POST',
                     body: taskId
@@ -50,6 +55,8 @@ export default function Component() {
                         userId: tasks.assignedUserId
                     });
                 }
+
+                toogleLoadingState(false);
             } catch (error) {
                 alert('Something went wrong!');
                 console.log(error);
@@ -58,10 +65,14 @@ export default function Component() {
         }
 
         async function fetchUser() {
+            toogleLoadingState(true);
+
             const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/available-user');
             const users = await res.json();
 
             setUser(users);
+
+            toogleLoadingState(false);
         }
 
         fetchingTask();
@@ -85,6 +96,8 @@ export default function Component() {
         }
 
         try {
+            toogleLoadingState(true);
+
             const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/update-task', {
                 method: 'POST',
                 body: JSON.stringify(formBody)
@@ -93,6 +106,8 @@ export default function Component() {
             if (res.ok) {
                 navigate('/');
             }
+
+            toogleLoadingState(false);
         } catch (error) {
             alert('Something went wrong!');
             console.log(error);
@@ -106,45 +121,49 @@ export default function Component() {
             {isAuth ?
                 <div>
                     <Header />
-                    <main>
-                        <h1>Update Task</h1>
-                        <form onSubmit={submitForm}>
-                            <div className="form-control">
-                                <label htmlFor="taskName">Task name</label>
-                                <input type="text" name="taskName" id="taskName" value={formData.taskName} onChange={handleChange} required />
-                            </div>
 
-                            <div className="form-control">
-                                <label htmlFor="taskDesc">Task Description</label>
-                                <input type="text" name="taskDesc" id="taskDesc" value={formData.taskDesc} onChange={handleChange} required />
-                            </div>
+                    {!isLoading ?
+                        <main>
+                            <h1>Update Task</h1>
+                            <form onSubmit={submitForm}>
+                                <div className="form-control">
+                                    <label htmlFor="taskName">Task name</label>
+                                    <input type="text" name="taskName" id="taskName" value={formData.taskName} onChange={handleChange} required />
+                                </div>
 
-                            <div className="form-control">
-                                <label htmlFor="refferenceUrl">Refference URL</label>
-                                <input type="url" name="refferenceUrl" id="refferenceUrl" value={formData.refferenceUrl} onChange={handleChange} required />
-                            </div>
+                                <div className="form-control">
+                                    <label htmlFor="taskDesc">Task Description</label>
+                                    <input type="text" name="taskDesc" id="taskDesc" value={formData.taskDesc} onChange={handleChange} required />
+                                </div>
 
-                            <div className="form-control">
-                                <label htmlFor="deadline">Deadline</label>
-                                <input type="date" name="deadline" id="deadline" value={htmlFormatDate} onChange={handleChange} required />
-                            </div>
+                                <div className="form-control">
+                                    <label htmlFor="refferenceUrl">Refference URL</label>
+                                    <input type="url" name="refferenceUrl" id="refferenceUrl" value={formData.refferenceUrl} onChange={handleChange} required />
+                                </div>
 
-                            <div className="form-control">
-                                <label htmlFor="userId">Assign User</label>
-                                <select name="userId" id="userId" onChange={handleChange} required>
+                                <div className="form-control">
+                                    <label htmlFor="deadline">Deadline</label>
+                                    <input type="date" name="deadline" id="deadline" value={htmlFormatDate} onChange={handleChange} required />
+                                </div>
 
-                                    <option value={formData.assignedUserId} selected >{taskData.assignedUser}</option>
-                                    {
-                                        availableUser.map((user) => (
-                                            <option value={user._id}>{user.name}</option>
-                                        ))
-                                    }
-                                </select>
-                            </div>
+                                <div className="form-control">
+                                    <label htmlFor="userId">Assign User</label>
+                                    <select name="userId" id="userId" onChange={handleChange} required>
 
-                            <button className="btn">Create Task</button>
-                        </form>
-                    </main>
+                                        <option value={formData.assignedUserId} selected >{taskData.assignedUser}</option>
+                                        {
+                                            availableUser.map((user) => (
+                                                <option value={user._id}>{user.name}</option>
+                                            ))
+                                        }
+                                    </select>
+                                </div>
+
+                                <button className="btn">Create Task</button>
+                            </form>
+                        </main>
+                        : <Loader />
+                    }
                 </div>
                 : <Navigate to='/login' />
             }

@@ -1,4 +1,3 @@
-
 # Task Management System
 
 This project facilitates efficient task management, allowing for the creation and organization of tasks while distinguishing between incomplete and completed ones. 
