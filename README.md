@@ -3,8 +3,6 @@
 This project facilitates efficient task management, allowing for the creation and organization of tasks while distinguishing between incomplete and completed ones. 
 
 The implementation involved utilizing technologies such as React.JS, Next.JS and MongoDB
-
-
 ## Tech Stack
 
 **Client:** React.JS
@@ -12,8 +10,6 @@ The implementation involved utilizing technologies such as React.JS, Next.JS and
 **Server:** Next.JS
 
 **Database:** MongoDB
-
-
 ## Getting Started
 
 To use it, Follow the installation guide:
@@ -34,8 +30,15 @@ To use it, Follow the installation guide:
 ```sh
 npm install
 ```
+    3. Create .env file in root directory
 
-    3. Start the app
+    4. Create enviorment variable named REACT_APP_API_URI
+
+```sh
+REACT_APP_API_URI = < Your_Server_Address >
+```
+
+    5. Start the app
 ```sh
 npm run start
 ```
@@ -44,6 +47,8 @@ npm run start
 ### Server Installation 
 
 - [Check out Server installation guide](https://github.com/swayamvasavada/task-management-backend.git)
+
+
 ## Developers
 
 - [@swayamvasavada](https://www.github.com/swayamvasavada)
