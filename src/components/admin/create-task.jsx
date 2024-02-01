@@ -34,7 +34,7 @@ export default function Component() {
 
     useEffect(() => {
         async function fetchUser() {
-            const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/available-user');
+            const res = await fetch(process.env.REACT_APP_API_URI + '/api/admin/available-user');
             const users = await res.json();
 
             setUser(users);

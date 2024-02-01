@@ -25,7 +25,7 @@ export default function Component() {
             try {
                 toogleLoadingState(true);
 
-                const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/user/task-view', {
+                const res = await fetch(process.env.REACT_APP_API_URI + '/api/user/task-view', {
                     method: 'POST',
                     body: token,
                 });
@@ -56,7 +56,7 @@ export default function Component() {
         try {
             toogleLoadingState(true);
 
-            const res = await fetch('http://localhost:3001/api/user/complete-task', {
+            const res = await fetch(process.env.REACT_APP_API_URI + '/api/user/complete-task', {
                 method: 'POST',
                 body: JSON.stringify(formData)
             });

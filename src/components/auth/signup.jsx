@@ -32,7 +32,7 @@ export default function Component() {
         try {
             toogleLoadingState(true);
 
-            const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/auth/signup', {
+            const res = await fetch(process.env.REACT_APP_API_URI + '/api/auth/signup', {
                 method: 'POST',
                 body: JSON.stringify(formData)
             });

@@ -38,7 +38,7 @@ export default function Component() {
             try {
                 toogleLoadingState(true);
 
-                const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/task-detail', {
+                const res = await fetch(process.env.REACT_APP_API_URI + '/api/admin/task-detail', {
                     method: 'POST',
                     body: taskId
                 });
@@ -67,7 +67,7 @@ export default function Component() {
         async function fetchUser() {
             toogleLoadingState(true);
 
-            const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/available-user');
+            const res = await fetch(process.env.REACT_APP_API_URI + '/api/admin/available-user');
             const users = await res.json();
 
             setUser(users);
@@ -98,7 +98,7 @@ export default function Component() {
         try {
             toogleLoadingState(true);
 
-            const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/update-task', {
+            const res = await fetch(process.env.REACT_APP_API_URI + '/api/admin/update-task', {
                 method: 'POST',
                 body: JSON.stringify(formBody)
             });

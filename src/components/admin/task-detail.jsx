@@ -24,7 +24,7 @@ export default function Component(props) {
             try {
                 toogleLoadingState(true);
 
-                const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/task-detail', {
+                const res = await fetch(process.env.REACT_APP_API_URI + '/api/admin/task-detail', {
                     method: 'POST',
                     body: taskId
                 });
@@ -77,7 +77,7 @@ export default function Component(props) {
                                 <h4>Expected by {new Date(taskData.deadline).toLocaleDateString()}</h4>
                             </div>
                         </main>
-                        : <Loader /> 
+                        : <Loader />
                     }
                 </div>
                 : <Navigate to='/login' />

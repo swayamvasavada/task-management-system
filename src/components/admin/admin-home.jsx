@@ -25,7 +25,7 @@ export default function Component() {
             try {
 
                 toogleLoadingState(true);
-                const res = await fetch('https://task-management-backend-lxp0.onrender.com/api/admin/task-view');
+                const res = await fetch( process.env.REACT_APP_API_URI + '/api/admin/task-view');
 
                 if (res.ok) {
                     const tasks = await res.json();
